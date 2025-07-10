@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="clr-namespace:UraniumUI.Material;assembly=UraniumUI.Material"
              x:Class="AracTakip.Views.YeniAracPage"
              Title="Yeni Araç Ekle">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10">
+        <VerticalStackLayout Padding="20" Spacing="15">
 
-            <Entry x:Name="PlakaEntry" Placeholder="Plaka" />
-            <Entry x:Name="MarkaEntry" Placeholder="Marka" />
-            <Entry x:Name="ModelEntry" Placeholder="Model" />
-            <Entry x:Name="YilEntry" Placeholder="Yıl" Keyboard="Numeric" />
-            <Entry x:Name="KmEntry" Placeholder="Güncel Kilometre" Keyboard="Numeric" />
+            <material:TextField x:Name="PlakaEntry" Title="Plaka" />
+            <material:TextField x:Name="MarkaEntry" Title="Marka" />
+            <material:TextField x:Name="ModelEntry" Title="Model" />
+            <material:TextField x:Name="YilEntry" Title="Yıl" Keyboard="Numeric" />
+            <material:TextField x:Name="KmEntry" Title="Güncel Kilometre" Keyboard="Numeric" />
 
-            <Entry x:Name="ArvEntry" Placeholder="ARV Cihaz No" />
-            <Entry x:Name="SasiEntry" Placeholder="Şasi No" />
-            <Entry x:Name="MotorEntry" Placeholder="Motor No" />
+            <material:TextField x:Name="ArvEntry" Title="ARV Cihaz No" />
+            <material:TextField x:Name="SasiEntry" Title="Şasi No" />
+            <material:TextField x:Name="MotorEntry" Title="Motor No" />
 
-            <Entry x:Name="RuhsatSeriEntry" Placeholder="Ruhsat Seri No" />
-            <Entry x:Name="FirmaEntry" Placeholder="Ruhsat Sahibi Firma" />
+            <material:TextField x:Name="RuhsatSeriEntry" Title="Ruhsat Seri No" />
+            <material:TextField x:Name="FirmaEntry" Title="Ruhsat Sahibi Firma" />
 
-            <DatePicker x:Name="VizePicker" Format="dd.MM.yyyy" />
-            <DatePicker x:Name="KaskoPicker" Format="dd.MM.yyyy" />
-            <DatePicker x:Name="SigortaPicker" Format="dd.MM.yyyy" />
+            <material:DatePickerField x:Name="VizePicker" Title="Vize Bitiş Tarihi" />
+            <material:DatePickerField x:Name="KaskoPicker" Title="Kasko Bitiş Tarihi" />
+            <material:DatePickerField x:Name="SigortaPicker" Title="Sigorta Bitiş Tarihi" />
 
-            <Editor x:Name="NotlarEditor" Placeholder="Notlar (isteğe bağlı)" AutoSize="TextChanges" />
+            <material:EditorField x:Name="NotlarEditor" Title="Notlar (isteğe bağlı)" />
 
-            <Button Text="Kaydet" Clicked="OnKaydetClicked" BackgroundColor="DarkSlateBlue" TextColor="White" />
+            <material:Button Text="Kaydet" 
+                             Clicked="OnKaydetClicked" 
+                             Margin="0,10,0,0" />
 
         </VerticalStackLayout>
     </ScrollView>

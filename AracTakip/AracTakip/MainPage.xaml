@@ -1,46 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AracTakip.Views.MainPage">
+             x:Class="AracTakip.MainPage"
+             xmlns:local="clr-namespace:AracTakip"
+             Title="Araçlarım"
+             BackgroundColor="{StaticResource PageBackgroundColor}">
 
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid RowDefinitions="Auto,*,Auto" RowSpacing="5">
 
-        <!-- 🔍 Arama -->
         <SearchBar x:Name="AramaCubugu"
-                   Placeholder="Araç ara (plaka, marka, model)"
-                   TextChanged="OnSearchTextChanged"
                    Grid.Row="0"
+                   Placeholder="Araç ara (plaka, marka, model)..."
+                   PlaceholderColor="{StaticResource SecondaryTextColor}"
+                   TextColor="{StaticResource PrimaryTextColor}"
+                   BackgroundColor="Transparent"
+                   TextChanged="OnSearchTextChanged"
                    Margin="10" />
 
-        <!-- 🚗 Araç Listesi -->
         <CollectionView x:Name="AracListesi"
+                        Grid.Row="1"
                         ItemsSource="{Binding Araclar}"
                         SelectionMode="Single"
-                        SelectionChanged="AracListesi_SelectionChanged"
-                        Grid.Row="1"
-                        Margin="10">
+                        SelectionChanged="AracListesi_SelectionChanged">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame BorderColor="LightGray" CornerRadius="8" Padding="10" Margin="5">
-                        <VerticalStackLayout>
-                            <Label Text="{Binding Plaka}" FontSize="18" FontAttributes="Bold"/>
-                            <Label Text="{Binding Marka}" />
-                            <Label Text="{Binding Model}" />
-                            <Label Text="{Binding GuncelKilometre, StringFormat='Kilometre: {0} km'}" />
+                    <Border StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20"
+                            Padding="15" Margin="10,5">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Color="#40FFFFFF" Offset="0.0" />
+                                <GradientStop Color="#1AFFFFFF" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="{Binding Plaka}" 
+                                   TextColor="{StaticResource PrimaryTextColor}" 
+                                   FontSize="18" 
+                                   FontAttributes="Bold"/>
+                            <Label Text="{Binding MarkaModel}" 
+                                   TextColor="{StaticResource SecondaryTextColor}"
+                                   FontSize="14"/>
+                            <Label Text="{Binding GuncelKilometre, StringFormat='Kilometre: {0:N0} km'}" 
+                                   TextColor="{StaticResource SecondaryTextColor}"
+                                   FontSize="12"/>
                         </VerticalStackLayout>
-                    </Frame>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- 📥 Alt Menü Butonu -->
-        <Grid Grid.Row="2" Padding="10">
-            <Button Text="➕ Yeni Araç Ekle"
-                    BackgroundColor="DarkSlateBlue"
-                    TextColor="White"
-                    Clicked="OnYeniAracEkleClicked"/>
-        </Grid>
+        <Button Text="➕ Yeni Araç Ekle"
+                Grid.Row="2"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="25"
+                HeightRequest="50"
+                Margin="20"
+                Clicked="OnYeniAracEkleClicked">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="1,0">
+                    <GradientStop Color="{StaticResource PrimaryAccentColor1}" Offset="0.1" />
+                    <GradientStop Color="{StaticResource PrimaryAccentColor2}" Offset="1.0" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </ContentPage>

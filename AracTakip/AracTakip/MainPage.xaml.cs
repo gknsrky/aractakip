@@ -2,7 +2,7 @@
 using AracTakip.Views;
 using System.Collections.ObjectModel;
 
-namespace AracTakip.Views;
+namespace AracTakip;
 
 public partial class MainPage : ContentPage
 {
@@ -11,7 +11,7 @@ public partial class MainPage : ContentPage
 
     public MainPage()
     {
-        InitializeComponent();
+        InitializeComponent(); // Bu satırın çalışabilmesi için MainPage.xaml dosyasının doğru şekilde tanımlanmış olması gerekir.
 
         // Dummy veri
         TumAraclar = new List<Arac>
