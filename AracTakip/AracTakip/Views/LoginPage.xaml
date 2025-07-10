@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AracTakip.Views.LoginPage"
+             Title="Giriş Yap">
+
+    <VerticalStackLayout Padding="30" Spacing="25">
+
+        <Label Text="Filo Takip Sistemi"
+               FontSize="32"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" />
+
+        <Entry x:Name="EmailEntry" Placeholder="E-posta" Keyboard="Email" />
+        <Entry x:Name="PasswordEntry" Placeholder="Şifre" IsPassword="True" />
+
+        <HorizontalStackLayout>
+            <CheckBox x:Name="RememberMeCheckbox" />
+            <Label Text="Beni hatırla" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <Button Text="Giriş Yap" Clicked="OnLoginClicked" />
+
+        <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False" />
+    </VerticalStackLayout>
+</ContentPage>

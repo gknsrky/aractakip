@@ -3,13 +3,10 @@
     x:Class="AracTakip.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:AracTakip"
+    xmlns:local="clr-namespace:AracTakip.Views"
     Shell.FlyoutBehavior="Disabled"
-    Title="AracTakip">
+    Title="AraçTakip">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+    <ShellContent Title="Ana Sayfa"
+                  ContentTemplate="{DataTemplate local:MainPage}" />
 </Shell>

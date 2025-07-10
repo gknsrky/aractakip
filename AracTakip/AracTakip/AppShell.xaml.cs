@@ -1,10 +1,10 @@
-﻿namespace AracTakip
+﻿namespace AracTakip;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AracTakip.Views.YeniAracPage"
+             Title="Yeni Araç Ekle">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+
+            <Entry x:Name="PlakaEntry" Placeholder="Plaka" />
+            <Entry x:Name="MarkaEntry" Placeholder="Marka" />
+            <Entry x:Name="ModelEntry" Placeholder="Model" />
+            <Entry x:Name="YilEntry" Placeholder="Yıl" Keyboard="Numeric" />
+            <Entry x:Name="KmEntry" Placeholder="Güncel Kilometre" Keyboard="Numeric" />
+
+            <Entry x:Name="ArvEntry" Placeholder="ARV Cihaz No" />
+            <Entry x:Name="SasiEntry" Placeholder="Şasi No" />
+            <Entry x:Name="MotorEntry" Placeholder="Motor No" />
+
+            <Entry x:Name="RuhsatSeriEntry" Placeholder="Ruhsat Seri No" />
+            <Entry x:Name="FirmaEntry" Placeholder="Ruhsat Sahibi Firma" />
+
+            <DatePicker x:Name="VizePicker" Format="dd.MM.yyyy" />
+            <DatePicker x:Name="KaskoPicker" Format="dd.MM.yyyy" />
+            <DatePicker x:Name="SigortaPicker" Format="dd.MM.yyyy" />
+
+            <Editor x:Name="NotlarEditor" Placeholder="Notlar (isteğe bağlı)" AutoSize="TextChanges" />
+
+            <Button Text="Kaydet" Clicked="OnKaydetClicked" BackgroundColor="DarkSlateBlue" TextColor="White" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

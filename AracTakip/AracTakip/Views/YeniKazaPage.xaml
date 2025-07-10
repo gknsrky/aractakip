@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AracTakip.Views.YeniKazaPage"
+             Title="Yeni Kaza Kaydı">
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Kaza Tarihi:" />
+        <DatePicker />
+
+        <Label Text="Açıklama:" />
+        <Editor AutoSize="TextChanges" HeightRequest="150" Placeholder="Kazanın detaylarını, hasarı ve sonucu yazın..." />
+
+        <Label Text="Tutar (₺):" />
+        <Entry Keyboard="Numeric" Placeholder="Örn: 1500.50" />
+
+        <Button Text="Kaza Fotoğrafları Ekle" Margin="0,20,0,0" />
+
+        <Button Text="Kaydet" FontAttributes="Bold" Margin="0,10,0,0" />
+    </VerticalStackLayout>
+</ContentPage>

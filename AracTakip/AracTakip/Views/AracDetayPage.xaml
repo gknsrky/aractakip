@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AracTakip.Views.AracDetayPage"
+             Title="Araç Detay">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <!-- Başlık -->
+            <Label Text="{Binding Plaka}" 
+                   FontSize="24" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <!-- Marka Model -->
+            <Label Text="{Binding Marka}" FontSize="18" />
+            <Label Text="{Binding Model}" FontSize="18" />
+            <Label Text="{Binding Yil, StringFormat='Yıl: {0}'}" />
+            <Label Text="{Binding GuncelKilometre, StringFormat='Kilometre: {0} km'}" />
+
+            <!-- Evrak Tarihleri -->
+            <Label Text="{Binding VizeBitisTarihi, StringFormat='Vize Bitiş: {0:dd.MM.yyyy}'}" />
+            <Label Text="{Binding KaskoBitisTarihi, StringFormat='Kasko Bitiş: {0:dd.MM.yyyy}'}" />
+            <Label Text="{Binding SigortaBitisTarihi, StringFormat='Sigorta Bitiş: {0:dd.MM.yyyy}'}" />
+
+            <!-- Ruhsat Bilgileri -->
+            <Label Text="{Binding RuhsatSeriNo, StringFormat='Ruhsat Seri No: {0}'}" />
+            <Label Text="{Binding RuhsatSahibiFirma, StringFormat='Firma: {0}'}" />
+
+            <!-- Butonlar -->
+            <Button Text="+ Bakım Ekle" Clicked="BakimEkleButton_Clicked" />
+            <Button Text="+ Kaza Ekle" Clicked="KazaEkleButton_Clicked" />
+            <Button Text="+ Arıza Ekle" Clicked="ArizaEkleButton_Clicked" />
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

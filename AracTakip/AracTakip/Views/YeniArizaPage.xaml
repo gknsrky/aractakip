@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AracTakip.Views.YeniArizaPage"
+             Title="Yeni Arıza Kaydı">
+    
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Arıza Tarihi:" />
+        <DatePicker />
+
+        <Label Text="Arıza Açıklaması:" />
+        <Editor AutoSize="TextChanges" HeightRequest="100" Placeholder="Arızayı detaylıca yazın..." />
+
+        <Label Text="Yapılan Onarım:" />
+        <Editor AutoSize="TextChanges" HeightRequest="100" Placeholder="Onarım detayları (İşlem tamamlanınca doldurulacak)..." />
+
+        <Label Text="Parça Maliyeti (₺):" />
+        <Entry Keyboard="Numeric" Placeholder="Örn: 800" />
+
+        <Label Text="İşçilik Maliyeti (₺):" />
+        <Entry Keyboard="Numeric" Placeholder="Örn: 500" />
+
+        <Button Text="Kaydet" FontAttributes="Bold" Margin="0,20,0,0" />
+    </VerticalStackLayout>
+</ContentPage>
