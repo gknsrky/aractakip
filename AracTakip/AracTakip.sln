@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AracTakip", "AracTakip\AracTakip.csproj", "{93BC3CE6-CCF8-415B-BF2C-C9A982C24EE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Çözüm Öğeleri", "Çözüm Öğeleri", "{AC80F682-3D55-C8F8-4895-A4A9EDD49434}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93BC3CE6-CCF8-415B-BF2C-C9A982C24EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93BC3CE6-CCF8-415B-BF2C-C9A982C24EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93BC3CE6-CCF8-415B-BF2C-C9A982C24EE9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{93BC3CE6-CCF8-415B-BF2C-C9A982C24EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93BC3CE6-CCF8-415B-BF2C-C9A982C24EE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93BC3CE6-CCF8-415B-BF2C-C9A982C24EE9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2A205F0F-FE74-4ABB-A38E-B303F20AC7C5}
+	EndGlobalSection
+EndGlobal
