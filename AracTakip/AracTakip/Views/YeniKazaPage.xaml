@@ -3,18 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AracTakip.Views.YeniKazaPage"
              Title="Yeni Kaza Kaydı">
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <Label Text="Kaza Tarihi:" />
-        <DatePicker />
 
-        <Label Text="Açıklama:" />
-        <Editor AutoSize="TextChanges" HeightRequest="150" Placeholder="Kazanın detaylarını, hasarı ve sonucu yazın..." />
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="15">
 
-        <Label Text="Tutar (₺):" />
-        <Entry Keyboard="Numeric" Placeholder="Örn: 1500.50" />
+            <Border Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Kaza Detayları" Style="{StaticResource CardHeaderLabel}" />
+                    <BoxView Style="{StaticResource Divider}" />
 
-        <Button Text="Kaza Fotoğrafları Ekle" Margin="0,20,0,0" />
+                    <Label Text="Kaza Tarihi" Style="{StaticResource InputLabel}" />
+                    <DatePicker Style="{StaticResource FormDatePicker}" />
 
-        <Button Text="Kaydet" FontAttributes="Bold" Margin="0,10,0,0" />
-    </VerticalStackLayout>
+                    <Label Text="Açıklama" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Editor AutoSize="TextChanges" HeightRequest="150" 
+                                Placeholder="Kazanın detaylarını, hasarı ve sonucu yazın..." 
+                                Style="{StaticResource FormEditor}" />
+                    </Border>
+
+                    <Label Text="Onarım ve Diğer Masraflar Toplamı (₺)" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry Keyboard="Numeric" Placeholder="Örn: 1500.50" Style="{StaticResource FormEntry}" />
+                    </Border>
+
+                    <Button Text="Kaza Fotoğrafları Ekle" 
+                            Margin="0,15,0,0"
+                            Style="{StaticResource SecondaryActionButton}" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Kaydet" 
+                    FontAttributes="Bold" 
+                    Margin="5,15,5,15"
+                    HeightRequest="55"
+                    Style="{StaticResource ActionButton}"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

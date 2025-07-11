@@ -2,37 +2,56 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AracTakip.Views.AracDetayPage"
-             Title="Araç Detay">
+             Title="{Binding Plaka}"
+             BackgroundColor="#1c1c2e">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="12">
+        <VerticalStackLayout Spacing="15" Padding="10">
 
-            <!-- Başlık -->
-            <Label Text="{Binding Plaka}" 
-                   FontSize="24" 
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center" />
+            <Border Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="10" Padding="15">
+                    <Label Text="{Binding MarkaModel}"
+                           TextColor="White"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center" />
+                    <BoxView HeightRequest="1" Color="#444" Margin="0,5"/>
+                    <Grid RowDefinitions="Auto, Auto, Auto"
+                          ColumnDefinitions="*, Auto">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Model Yılı" Style="{StaticResource LabelSecondary}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Yil}" Style="{StaticResource LabelPrimary}" />
+                        <Label Grid.Row="1" Grid.Column="0" Text="Güncel Kilometre" Style="{StaticResource LabelSecondary}" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding GuncelKilometre, StringFormat='{0:N0} km'}" Style="{StaticResource LabelPrimary}" />
+                        <Label Grid.Row="2" Grid.Column="0" Text="Ruhsat Seri No" Style="{StaticResource LabelSecondary}" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding RuhsatSeriNo}" Style="{StaticResource LabelPrimary}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
 
-            <!-- Marka Model -->
-            <Label Text="{Binding Marka}" FontSize="18" />
-            <Label Text="{Binding Model}" FontSize="18" />
-            <Label Text="{Binding Yil, StringFormat='Yıl: {0}'}" />
-            <Label Text="{Binding GuncelKilometre, StringFormat='Kilometre: {0} km'}" />
+            <Border Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="10" Padding="15">
+                    <Label Text="Önemli Tarihler" FontSize="18" TextColor="White" FontAttributes="Bold" />
+                    <BoxView HeightRequest="1" Color="#444" Margin="0,5"/>
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Image Source="calendar_icon.png" Style="{StaticResource IconSmall}"/>
+                        <Label Grid.Column="1" Text="{Binding VizeBitisTarihi, StringFormat='Vize Bitiş: {0:dd MMMM yyyy}'}" Style="{StaticResource LabelPrimary}"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Image Source="calendar_icon.png" Style="{StaticResource IconSmall}"/>
+                        <Label Grid.Column="1" Text="{Binding KaskoBitisTarihi, StringFormat='Kasko Bitiş: {0:dd MMMM yyyy}'}" Style="{StaticResource LabelPrimary}"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Image Source="calendar_icon.png" Style="{StaticResource IconSmall}"/>
+                        <Label Grid.Column="1" Text="{Binding SigortaBitisTarihi, StringFormat='Sigorta Bitiş: {0:dd MMMM yyyy}'}" Style="{StaticResource LabelPrimary}"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
 
-            <!-- Evrak Tarihleri -->
-            <Label Text="{Binding VizeBitisTarihi, StringFormat='Vize Bitiş: {0:dd.MM.yyyy}'}" />
-            <Label Text="{Binding KaskoBitisTarihi, StringFormat='Kasko Bitiş: {0:dd.MM.yyyy}'}" />
-            <Label Text="{Binding SigortaBitisTarihi, StringFormat='Sigorta Bitiş: {0:dd.MM.yyyy}'}" />
-
-            <!-- Ruhsat Bilgileri -->
-            <Label Text="{Binding RuhsatSeriNo, StringFormat='Ruhsat Seri No: {0}'}" />
-            <Label Text="{Binding RuhsatSahibiFirma, StringFormat='Firma: {0}'}" />
-
-            <!-- Butonlar -->
-            <Button Text="+ Bakım Ekle" Clicked="BakimEkleButton_Clicked" />
-            <Button Text="+ Kaza Ekle" Clicked="KazaEkleButton_Clicked" />
-            <Button Text="+ Arıza Ekle" Clicked="ArizaEkleButton_Clicked" />
-
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10" Margin="10,20,10,10">
+                <Button Grid.Column="0" Text="+ Bakım" Clicked="BakimEkleButton_Clicked" Style="{StaticResource ActionButton}" />
+                <Button Grid.Column="1" Text="+ Kaza" Clicked="KazaEkleButton_Clicked" Style="{StaticResource ActionButton}" />
+                <Button Grid.Column="2" Text="+ Arıza" Clicked="ArizaEkleButton_Clicked" Style="{StaticResource ActionButton}" />
+            </Grid>
 
         </VerticalStackLayout>
     </ScrollView>

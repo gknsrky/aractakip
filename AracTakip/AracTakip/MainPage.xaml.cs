@@ -26,6 +26,7 @@ public partial class MainPage : ContentPage
         BindingContext = this;
     }
 
+
     private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
     {
         string filtre = e.NewTextValue?.ToLower() ?? "";
@@ -51,5 +52,12 @@ public partial class MainPage : ContentPage
     private async void OnYeniAracEkleClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new YeniAracPage());
+    }
+
+    private async void OnTakvimClicked(object sender, EventArgs e)
+    {
+        // Artık bizi yeni oluşturduğumuz takvim sayfamıza yönlendiriyor.
+        // using AracTakip.Views; satırının dosyanın en üstünde olduğundan emin ol.
+        await Navigation.PushAsync(new CalendarPage());
     }
 }

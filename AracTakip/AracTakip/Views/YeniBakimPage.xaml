@@ -3,21 +3,64 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AracTakip.Views.YeniBakimPage"
              Title="Yeni Bakım Kaydı">
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <Label Text="Bakım Tarihi:" />
-        <DatePicker />
 
-        <Label Text="Araç Kilometresi:" />
-        <Entry Keyboard="Numeric" Placeholder="Örn: 125000" />
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="15">
 
-        <Label Text="Yapılan İşlemler:" />
-        <Editor AutoSize="TextChanges" HeightRequest="150" Placeholder="Yapılan tüm işlemleri detaylıca yazın..." />
+            <Border Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Bakım Detayları" Style="{StaticResource CardHeaderLabel}" />
+                    <BoxView Style="{StaticResource Divider}" />
 
-        <Label Text="Tutar (₺):" />
-        <Entry Keyboard="Numeric" Placeholder="Örn: 1500.50" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Bakım Tarihi" Style="{StaticResource InputLabel}" />
+                            <DatePicker Style="{StaticResource FormDatePicker}" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Araç Kilometresi" Style="{StaticResource InputLabel}" />
+                            <Border Style="{StaticResource InputBorderStyle}">
+                                <Entry Keyboard="Numeric" Placeholder="örn: 150.000" Style="{StaticResource FormEntry}" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
 
-        <Button Text="Fatura/Belge Ekle" Margin="0,20,0,0" />
+                    <Label Text="Bakımın Yapıldığı Yer" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry Placeholder="Servis adı veya konumu" Style="{StaticResource FormEntry}" />
+                    </Border>
 
-        <Button Text="Kaydet" FontAttributes="Bold" Margin="0,10,0,0" />
-    </VerticalStackLayout>
+                    <Label Text="Yapılan İşlemlerin Açıklaması" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Editor AutoSize="TextChanges" HeightRequest="120" 
+                                Placeholder="Değişen parçalar, yapılan kontroller vb." 
+                                Style="{StaticResource FormEditor}" />
+                    </Border>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Parça Maliyeti (₺)" Style="{StaticResource InputLabel}" />
+                            <Border Style="{StaticResource InputBorderStyle}">
+                                <Entry Keyboard="Numeric" Placeholder="0" Style="{StaticResource FormEntry}" />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="İşçilik Maliyeti (₺)" Style="{StaticResource InputLabel}" />
+                            <Border Style="{StaticResource InputBorderStyle}">
+                                <Entry Keyboard="Numeric" Placeholder="0" Style="{StaticResource FormEntry}" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Bakım Kaydını Oluştur" 
+                    FontAttributes="Bold" 
+                    Margin="5,15,5,15"
+                    HeightRequest="55"
+                    Style="{StaticResource ActionButton}"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

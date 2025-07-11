@@ -1,35 +1,119 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:material="clr-namespace:UraniumUI.Material;assembly=UraniumUI.Material"
              x:Class="AracTakip.Views.YeniAracPage"
              Title="Yeni Araç Ekle">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="10" Spacing="15">
 
-            <material:TextField x:Name="PlakaEntry" Title="Plaka" />
-            <material:TextField x:Name="MarkaEntry" Title="Marka" />
-            <material:TextField x:Name="ModelEntry" Title="Model" />
-            <material:TextField x:Name="YilEntry" Title="Yıl" Keyboard="Numeric" />
-            <material:TextField x:Name="KmEntry" Title="Güncel Kilometre" Keyboard="Numeric" />
+            <Border Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Temel Araç Bilgileri" Style="{StaticResource CardHeaderLabel}" />
+                    <BoxView Style="{StaticResource Divider}" />
 
-            <material:TextField x:Name="ArvEntry" Title="ARV Cihaz No" />
-            <material:TextField x:Name="SasiEntry" Title="Şasi No" />
-            <material:TextField x:Name="MotorEntry" Title="Motor No" />
+                    <Label Text="Plaka" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry x:Name="PlakaEntry" Style="{StaticResource FormEntry}" />
+                    </Border>
 
-            <material:TextField x:Name="RuhsatSeriEntry" Title="Ruhsat Seri No" />
-            <material:TextField x:Name="FirmaEntry" Title="Ruhsat Sahibi Firma" />
+                    <Label Text="Marka" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry x:Name="MarkaEntry" Style="{StaticResource FormEntry}" />
+                    </Border>
 
-            <material:DatePickerField x:Name="VizePicker" Title="Vize Bitiş Tarihi" />
-            <material:DatePickerField x:Name="KaskoPicker" Title="Kasko Bitiş Tarihi" />
-            <material:DatePickerField x:Name="SigortaPicker" Title="Sigorta Bitiş Tarihi" />
+                    <Label Text="Model" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry x:Name="ModelEntry" Style="{StaticResource FormEntry}" />
+                    </Border>
 
-            <material:EditorField x:Name="NotlarEditor" Title="Notlar (isteğe bağlı)" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Yıl" Style="{StaticResource InputLabel}" />
+                            <Border Style="{StaticResource InputBorderStyle}">
+                                <Entry x:Name="YilEntry" Keyboard="Numeric" Style="{StaticResource FormEntry}" />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Kilometre" Style="{StaticResource InputLabel}" />
+                            <Border Style="{StaticResource InputBorderStyle}">
+                                <Entry x:Name="KmEntry" Keyboard="Numeric" Style="{StaticResource FormEntry}" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
 
-            <material:Button Text="Kaydet" 
-                             Clicked="OnKaydetClicked" 
-                             Margin="0,10,0,0" />
+            <Border Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Teknik &amp; Ruhsat Bilgileri" Style="{StaticResource CardHeaderLabel}" />
+                    <BoxView Style="{StaticResource Divider}" />
+
+                    <Label Text="Şasi No" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry x:Name="SasiEntry" Style="{StaticResource FormEntry}" />
+                    </Border>
+
+                    <Label Text="ARV Cihaz No" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry x:Name="ArvEntry" Style="{StaticResource FormEntry}" />
+                    </Border>
+                    
+                    <Label Text="Motor No" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry x:Name="MotorEntry" Style="{StaticResource FormEntry}" />
+                    </Border>
+
+                    <Label Text="Ruhsat Seri No" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry x:Name="RuhsatSeriEntry" Style="{StaticResource FormEntry}" />
+                    </Border>
+
+                    <Label Text="Ruhsat Sahibi Firma" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry x:Name="FirmaEntry" Style="{StaticResource FormEntry}" />
+                    </Border>
+                    
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Evrak Bitiş Tarihleri" Style="{StaticResource CardHeaderLabel}" />
+                    <BoxView Style="{StaticResource Divider}" />
+
+                    <Label Text="Vize Bitiş Tarihi" Style="{StaticResource InputLabel}" />
+                    <DatePicker x:Name="VizePicker" Style="{StaticResource FormDatePicker}" />
+
+                    <Label Text="Kasko Bitiş Tarihi" Style="{StaticResource InputLabel}" />
+                    <DatePicker x:Name="KaskoPicker" Style="{StaticResource FormDatePicker}" />
+
+                    <Label Text="Sigorta Bitiş Tarihi" Style="{StaticResource InputLabel}" />
+                    <DatePicker x:Name="SigortaPicker" Style="{StaticResource FormDatePicker}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Araç Hakkında Notlar" Style="{StaticResource CardHeaderLabel}" />
+                    <BoxView Style="{StaticResource Divider}" />
+
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Editor x:Name="NotlarEditor" 
+                                AutoSize="TextChanges" 
+                                HeightRequest="100" 
+                                Placeholder="Ek bilgiler, aracın geçmişi vb..." 
+                                Style="{StaticResource FormEditor}" />
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+            
+
+            <Button Text="Kaydet"
+                    Clicked="OnKaydetClicked"
+                    Style="{StaticResource ActionButton}"
+                    HeightRequest="55"
+                    Margin="5,15,5,15" />
 
         </VerticalStackLayout>
     </ScrollView>

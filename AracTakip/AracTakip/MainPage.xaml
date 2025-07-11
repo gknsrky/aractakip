@@ -2,71 +2,93 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AracTakip.MainPage"
-             xmlns:local="clr-namespace:AracTakip"
-             Title="Araçlarım"
-             BackgroundColor="{StaticResource PageBackgroundColor}">
+             Title="Ana Sayfa">
 
-    <Grid RowDefinitions="Auto,*,Auto" RowSpacing="5">
+    <Grid>
 
-        <SearchBar x:Name="AramaCubugu"
-                   Grid.Row="0"
-                   Placeholder="Araç ara (plaka, marka, model)..."
-                   PlaceholderColor="{StaticResource SecondaryTextColor}"
-                   TextColor="{StaticResource PrimaryTextColor}"
-                   BackgroundColor="Transparent"
-                   TextChanged="OnSearchTextChanged"
-                   Margin="10" />
+        <ScrollView>
+            <VerticalStackLayout Spacing="15" Padding="0,0,0,80">
+                <Grid ColumnDefinitions="*, Auto" Padding="20,20,20,0">
+                    <StackLayout>
+                        <Label Text="Merhaba, Hoş Geldin! 👋" TextColor="{StaticResource SecondaryTextColor}" FontSize="16"/>
+                        <Label Text="Filo Takip Paneli" TextColor="{StaticResource PrimaryTextColor}" FontSize="22" FontAttributes="Bold"/>
+                    </StackLayout>
+                </Grid>
+                <Border Margin="20,15,20,0"
+                    StrokeThickness="1"
+                    Stroke="{StaticResource BorderColor}"
+                    Style="{StaticResource CardView}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTakvimClicked" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="15" Padding="15,10">
+                        <Image Source="calendar_icon.png" Style="{StaticResource IconSmall}"/>
+                        <Label Text="Etkinlik Takvimi" Style="{StaticResource LabelPrimary}" FontAttributes="Bold" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Border>
 
-        <CollectionView x:Name="AracListesi"
-                        Grid.Row="1"
-                        ItemsSource="{Binding Araclar}"
-                        SelectionMode="Single"
-                        SelectionChanged="AracListesi_SelectionChanged">
-
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border StrokeThickness="0"
-                            StrokeShape="RoundRectangle 20"
-                            Padding="15" Margin="10,5">
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="15" Padding="20,10">
+                    <Border Grid.Column="0" Style="{StaticResource CardView}">
                         <Border.Background>
                             <LinearGradientBrush EndPoint="0,1">
-                                <GradientStop Color="#40FFFFFF" Offset="0.0" />
-                                <GradientStop Color="#1AFFFFFF" Offset="1.0" />
+                                <GradientStop Color="{StaticResource PrimaryAccentColor}" Offset="0.1" />
+                                <GradientStop Color="#4a4a6a" Offset="1.0" />
                             </LinearGradientBrush>
                         </Border.Background>
-
-                        <VerticalStackLayout Spacing="5">
-                            <Label Text="{Binding Plaka}" 
-                                   TextColor="{StaticResource PrimaryTextColor}" 
-                                   FontSize="18" 
-                                   FontAttributes="Bold"/>
-                            <Label Text="{Binding MarkaModel}" 
-                                   TextColor="{StaticResource SecondaryTextColor}"
-                                   FontSize="14"/>
-                            <Label Text="{Binding GuncelKilometre, StringFormat='Kilometre: {0:N0} km'}" 
-                                   TextColor="{StaticResource SecondaryTextColor}"
-                                   FontSize="12"/>
-                        </VerticalStackLayout>
+                        <StackLayout Padding="15" Spacing="8">
+                            <Label Text="Toplam Araç" TextColor="White" FontSize="14"/>
+                            <Label Text="50" TextColor="White" FontSize="28" FontAttributes="Bold"/>
+                        </StackLayout>
                     </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                    <Border Grid.Column="1" Style="{StaticResource CardView}">
+                        <StackLayout Padding="15" Spacing="8">
+                            <Label Text="Raporlar" TextColor="{StaticResource SecondaryTextColor}" FontSize="14"/>
+                            <Image Source="rapor_icon.png" HeightRequest="32" Aspect="AspectFit" HorizontalOptions="Start"/>
+                        </StackLayout>
+                    </Border>
+                </Grid>
 
-        <Button Text="➕ Yeni Araç Ekle"
-                Grid.Row="2"
-                TextColor="White"
+                <VerticalStackLayout Spacing="10" Padding="20,10,20,0">
+                    <Label Text="Araç Listesi" FontSize="18" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <SearchBar Placeholder="Sürücü veya plaka ara..." Style="{StaticResource FormSearchBar}" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <CollectionView x:Name="AracListesi"
+                                ItemsSource="{Binding Araclar}"
+                                SelectionMode="Single"
+                                SelectionChanged="AracListesi_SelectionChanged">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="20,8" Padding="10" Style="{StaticResource CardView}">
+                                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
+                                    <Image Grid.Column="0" Source="{Binding ImageUrl}" HeightRequest="60" WidthRequest="60" Aspect="AspectFill" BackgroundColor="Gray"/>
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding Plaka}" Style="{StaticResource LabelPrimary}" FontAttributes="Bold" />
+                                        <Label Text="{Binding MarkaModel}" Style="{StaticResource LabelSecondary}" FontSize="12" />
+                                    </VerticalStackLayout>
+                                    <Image Grid.Column="2" Source="chevron_right.png" HeightRequest="24" WidthRequest="24" VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Button Text="+"
+                Clicked="OnYeniAracEkleClicked"
                 FontAttributes="Bold"
-                CornerRadius="25"
-                HeightRequest="50"
+                FontSize="24"
+                VerticalOptions="End"
+                HorizontalOptions="End"
                 Margin="20"
-                Clicked="OnYeniAracEkleClicked">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="1,0">
-                    <GradientStop Color="{StaticResource PrimaryAccentColor1}" Offset="0.1" />
-                    <GradientStop Color="{StaticResource PrimaryAccentColor2}" Offset="1.0" />
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-
+                HeightRequest="60"
+                WidthRequest="60"
+                CornerRadius="30"
+                Style="{StaticResource ActionButton}"/>
     </Grid>
 </ContentPage>

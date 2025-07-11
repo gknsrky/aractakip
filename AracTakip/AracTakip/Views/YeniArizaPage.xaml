@@ -3,23 +3,62 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AracTakip.Views.YeniArizaPage"
              Title="Yeni Arıza Kaydı">
-    
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <Label Text="Arıza Tarihi:" />
-        <DatePicker />
 
-        <Label Text="Arıza Açıklaması:" />
-        <Editor AutoSize="TextChanges" HeightRequest="100" Placeholder="Arızayı detaylıca yazın..." />
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="15">
 
-        <Label Text="Yapılan Onarım:" />
-        <Editor AutoSize="TextChanges" HeightRequest="100" Placeholder="Onarım detayları (İşlem tamamlanınca doldurulacak)..." />
+            <Border Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Arıza Tespit Bilgileri" Style="{StaticResource CardHeaderLabel}" />
+                    <BoxView Style="{StaticResource Divider}" />
 
-        <Label Text="Parça Maliyeti (₺):" />
-        <Entry Keyboard="Numeric" Placeholder="Örn: 800" />
+                    <Label Text="Arıza Tarihi" Style="{StaticResource InputLabel}" />
+                    <DatePicker Style="{StaticResource FormDatePicker}" />
 
-        <Label Text="İşçilik Maliyeti (₺):" />
-        <Entry Keyboard="Numeric" Placeholder="Örn: 500" />
+                    <Label Text="Arıza Açıklaması" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Editor AutoSize="TextChanges" HeightRequest="100" 
+                                Placeholder="Arızayı detaylıca yazın..." 
+                                Style="{StaticResource FormEditor}" />
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
 
-        <Button Text="Kaydet" FontAttributes="Bold" Margin="0,20,0,0" />
-    </VerticalStackLayout>
+            <Border Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Onarım ve Maliyet Bilgileri" Style="{StaticResource CardHeaderLabel}" />
+                    <BoxView Style="{StaticResource Divider}" />
+
+                    <Label Text="Yapılan Onarım" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Editor AutoSize="TextChanges" HeightRequest="100" 
+                                Placeholder="Onarım detayları..." 
+                                Style="{StaticResource FormEditor}" />
+                    </Border>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Parça Maliyeti (₺)" Style="{StaticResource InputLabel}" />
+                            <Border Style="{StaticResource InputBorderStyle}">
+                                <Entry Keyboard="Numeric" Placeholder="0" Style="{StaticResource FormEntry}" />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="İşçilik Maliyeti (₺)" Style="{StaticResource InputLabel}" />
+                            <Border Style="{StaticResource InputBorderStyle}">
+                                <Entry Keyboard="Numeric" Placeholder="0" Style="{StaticResource FormEntry}" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Kaydet" 
+                    FontAttributes="Bold" 
+                    Margin="5,15,5,15"
+                    HeightRequest="55"
+                    Style="{StaticResource ActionButton}"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
