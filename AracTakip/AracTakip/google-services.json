@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "668421354371",
+    "project_id": "aractakip-ee2de",
+    "storage_bucket": "aractakip-ee2de.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668421354371:android:73fc217daf3e561289fcb6",
+        "android_client_info": {
+          "package_name": "com.companyname.aractakip"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZsspQl8lEpxTpfEWvgRI5QqC3DdZ0pLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

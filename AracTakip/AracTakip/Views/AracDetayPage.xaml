@@ -53,6 +53,55 @@
                 <Button Grid.Column="2" Text="+ Arıza" Clicked="ArizaEkleButton_Clicked" Style="{StaticResource ActionButton}" />
             </Grid>
 
+            <!-- Arıza Kayıtları -->
+            <Label Text="Arıza Kayıtları" TextColor="White" FontAttributes="Bold" FontSize="18" Margin="0,10,0,0"/>
+            <CollectionView ItemsSource="{Binding ArizaKayitlari}" Margin="0,0,0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding ArizaTarihi, StringFormat='Tarih: {0:dd.MM.yyyy}'}" TextColor="White"/>
+                                <Label Text="{Binding ArizaAciklamasi}" TextColor="White" FontAttributes="Bold"/>
+                                <Label Text="{Binding YapilanOnarim}" TextColor="LightGray"/>
+                                <Label Text="{Binding Durum}" TextColor="LightBlue"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Bakım Kayıtları -->
+            <Label Text="Bakım Kayıtları" TextColor="White" FontAttributes="Bold" FontSize="18" Margin="0,10,0,0"/>
+            <CollectionView ItemsSource="{Binding BakimKayitlari}" Margin="0,0,0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding BakimTarihi, StringFormat='Tarih: {0:dd.MM.yyyy}'}" TextColor="White"/>
+                                <Label Text="{Binding YapilanIslemler}" TextColor="LightGray"/>
+                                <Label Text="{Binding BakimYapildigiKilometre, StringFormat='KM: {0:N0}'}" TextColor="White"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Kaza Kayıtları -->
+            <Label Text="Kaza Kayıtları" TextColor="White" FontAttributes="Bold" FontSize="18" Margin="0,10,0,0"/>
+            <CollectionView ItemsSource="{Binding KazaKayitlari}" Margin="0,0,0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding KazaTarihi, StringFormat='Tarih: {0:dd.MM.yyyy}'}" TextColor="White"/>
+                                <Label Text="{Binding Aciklama}" TextColor="LightGray"/>
+                                <Label Text="{Binding ToplamTutar, StringFormat='Tutar: ₺{0:N2}'}" TextColor="LightGreen"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
