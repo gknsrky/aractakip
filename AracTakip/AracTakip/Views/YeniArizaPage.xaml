@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:AracTakip.Behaviors"
              x:Class="AracTakip.Views.YeniArizaPage"
              Title="Yeni Arıza Kaydı">
 
@@ -13,11 +14,11 @@
                     <BoxView Style="{StaticResource Divider}" />
 
                     <Label Text="Arıza Tarihi" Style="{StaticResource InputLabel}" />
-                    <DatePicker Style="{StaticResource FormDatePicker}" />
+                    <DatePicker x:Name="ArizaTarihiPicker" Style="{StaticResource FormDatePicker}" />
 
                     <Label Text="Arıza Açıklaması" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Editor AutoSize="TextChanges" HeightRequest="100" 
+                        <Editor x:Name="ArizaAciklamaEditor" AutoSize="TextChanges" HeightRequest="100" 
                                 Placeholder="Arızayı detaylıca yazın..." 
                                 Style="{StaticResource FormEditor}" />
                     </Border>
@@ -31,7 +32,7 @@
 
                     <Label Text="Yapılan Onarım" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Editor AutoSize="TextChanges" HeightRequest="100" 
+                        <Editor x:Name="OnarimAciklamaEditor" AutoSize="TextChanges" HeightRequest="100" 
                                 Placeholder="Onarım detayları..." 
                                 Style="{StaticResource FormEditor}" />
                     </Border>
@@ -40,13 +41,13 @@
                         <VerticalStackLayout Grid.Column="0">
                             <Label Text="Parça Maliyeti (₺)" Style="{StaticResource InputLabel}" />
                             <Border Style="{StaticResource InputBorderStyle}">
-                                <Entry Keyboard="Numeric" Placeholder="0" Style="{StaticResource FormEntry}" />
+                                <Entry x:Name="ParcaMaliyetEntry" Keyboard="Numeric" Placeholder="0" Style="{StaticResource FormEntry}" />
                             </Border>
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="1">
                             <Label Text="İşçilik Maliyeti (₺)" Style="{StaticResource InputLabel}" />
                             <Border Style="{StaticResource InputBorderStyle}">
-                                <Entry Keyboard="Numeric" Placeholder="0" Style="{StaticResource FormEntry}" />
+                                <Entry x:Name="IscilikMaliyetEntry" Keyboard="Numeric" Placeholder="0" Style="{StaticResource FormEntry}" />
                             </Border>
                         </VerticalStackLayout>
                     </Grid>
@@ -54,6 +55,7 @@
             </Border>
 
             <Button Text="Kaydet" 
+                    Clicked="OnKaydetClicked"
                     FontAttributes="Bold" 
                     Margin="5,15,5,15"
                     HeightRequest="55"

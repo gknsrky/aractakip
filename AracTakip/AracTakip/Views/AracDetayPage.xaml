@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:AracTakip.Models"
              x:Class="AracTakip.Views.AracDetayPage"
-             Title="{Binding Plaka}"
-             BackgroundColor="#1c1c2e">
+             Title="{Binding DetayArac.Plaka}">
 
     <ScrollView>
         <VerticalStackLayout Spacing="15" Padding="10">
 
             <Border Style="{StaticResource CardView}">
                 <VerticalStackLayout Spacing="10" Padding="15">
-                    <Label Text="{Binding MarkaModel}"
-                           TextColor="White"
-                           FontSize="22"
-                           FontAttributes="Bold"
-                           HorizontalOptions="Center" />
-                    <BoxView HeightRequest="1" Color="#444" Margin="0,5"/>
-                    <Grid RowDefinitions="Auto, Auto, Auto"
-                          ColumnDefinitions="*, Auto">
+                    <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                        <StackLayout Grid.Column="0">
+                            <Label Text="{Binding DetayArac.Marka}" TextColor="White" FontSize="22" FontAttributes="Bold"/>
+                            <Label Text="{Binding DetayArac.Model}" TextColor="{StaticResource SecondaryTextColor}" FontSize="18"/>
+                        </StackLayout>
+                        <ImageButton Grid.Column="1" Source="edit_icon.png" HeightRequest="24" WidthRequest="24" Clicked="DuzenleButton_Clicked" HorizontalOptions="End" />
+                    </Grid>
+                    <BoxView Style="{StaticResource Divider}" Margin="0,5"/>
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*, Auto">
                         <Label Grid.Row="0" Grid.Column="0" Text="Model Yılı" Style="{StaticResource LabelSecondary}" />
-                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Yil}" Style="{StaticResource LabelPrimary}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding DetayArac.Yil}" Style="{StaticResource LabelPrimary}" />
+
                         <Label Grid.Row="1" Grid.Column="0" Text="Güncel Kilometre" Style="{StaticResource LabelSecondary}" />
-                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding GuncelKilometre, StringFormat='{0:N0} km'}" Style="{StaticResource LabelPrimary}" />
-                        <Label Grid.Row="2" Grid.Column="0" Text="Ruhsat Seri No" Style="{StaticResource LabelSecondary}" />
-                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding RuhsatSeriNo}" Style="{StaticResource LabelPrimary}" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding DetayArac.GuncelKilometre, StringFormat='{0:N0} km'}" Style="{StaticResource LabelPrimary}" />
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Atanan Kullanıcı" Style="{StaticResource LabelSecondary}" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding DetayArac.AtananKullanici}" Style="{StaticResource LabelPrimary}" />
+                        <Label Grid.Row="3" Grid.Column="0" Text="Şasi No" Style="{StaticResource LabelSecondary}" />
+                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding DetayArac.SasiNo}" Style="{StaticResource LabelPrimary}" />
+                        <Label Grid.Row="4" Grid.Column="0" Text="Motor No" Style="{StaticResource LabelSecondary}" />
+                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding DetayArac.MotorNo}" Style="{StaticResource LabelPrimary}" />
+                        <Label Grid.Row="5" Grid.Column="0" Text="Ruhsat Seri No" Style="{StaticResource LabelSecondary}" />
+                        <Label Grid.Row="5" Grid.Column="1" Text="{Binding DetayArac.RuhsatSeriNo}" Style="{StaticResource LabelPrimary}" />
+                        <Label Grid.Row="6" Grid.Column="0" Text="Ruhsat Sahibi" Style="{StaticResource LabelSecondary}" />
+                        <Label Grid.Row="6" Grid.Column="1" Text="{Binding DetayArac.RuhsatSahibiFirma}" Style="{StaticResource LabelPrimary}" />
+                        <Label Grid.Row="7" Grid.Column="0" Text="ARV Cihaz No" Style="{StaticResource LabelSecondary}" />
+                        <Label Grid.Row="7" Grid.Column="1" Text="{Binding DetayArac.ArvCihazNo}" Style="{StaticResource LabelPrimary}" />
                     </Grid>
                 </VerticalStackLayout>
             </Border>
@@ -31,73 +44,62 @@
             <Border Style="{StaticResource CardView}">
                 <VerticalStackLayout Spacing="10" Padding="15">
                     <Label Text="Önemli Tarihler" FontSize="18" TextColor="White" FontAttributes="Bold" />
-                    <BoxView HeightRequest="1" Color="#444" Margin="0,5"/>
-                    <Grid ColumnDefinitions="Auto, *">
-                        <Image Source="calendar_icon.png" Style="{StaticResource IconSmall}"/>
-                        <Label Grid.Column="1" Text="{Binding VizeBitisTarihi, StringFormat='Vize Bitiş: {0:dd MMMM yyyy}'}" Style="{StaticResource LabelPrimary}"/>
-                    </Grid>
-                    <Grid ColumnDefinitions="Auto, *">
-                        <Image Source="calendar_icon.png" Style="{StaticResource IconSmall}"/>
-                        <Label Grid.Column="1" Text="{Binding KaskoBitisTarihi, StringFormat='Kasko Bitiş: {0:dd MMMM yyyy}'}" Style="{StaticResource LabelPrimary}"/>
-                    </Grid>
-                    <Grid ColumnDefinitions="Auto, *">
-                        <Image Source="calendar_icon.png" Style="{StaticResource IconSmall}"/>
-                        <Label Grid.Column="1" Text="{Binding SigortaBitisTarihi, StringFormat='Sigorta Bitiş: {0:dd MMMM yyyy}'}" Style="{StaticResource LabelPrimary}"/>
+                    <BoxView Style="{StaticResource Divider}" Margin="0,5"/>
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto, *">
+                        <Image Grid.Row="0" Grid.Column="0" Source="calendar_icon.png" Style="{StaticResource IconSmall}"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding DetayArac.VizeBitisTarihi, StringFormat='Vize Bitiş: {0:dd.MM.yyyy}'}" Style="{StaticResource LabelPrimary}"/>
+                        <Image Grid.Row="1" Grid.Column="0" Source="calendar_icon.png" Style="{StaticResource IconSmall}"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding DetayArac.SigortaBitisTarihi, StringFormat='Sigorta Bitiş: {0:dd.MM.yyyy}'}" Style="{StaticResource LabelPrimary}"/>
+                        <Image Grid.Row="2" Grid.Column="0" Source="calendar_icon.png" Style="{StaticResource IconSmall}"/>
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding DetayArac.KaskoBitisTarihi, StringFormat='Kasko Bitiş: {0:dd.MM.yyyy}'}" Style="{StaticResource LabelPrimary}"/>
                     </Grid>
                 </VerticalStackLayout>
             </Border>
 
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10" Margin="10,20,10,10">
-                <Button Grid.Column="0" Text="+ Bakım" Clicked="BakimEkleButton_Clicked" Style="{StaticResource ActionButton}" />
-                <Button Grid.Column="1" Text="+ Kaza" Clicked="KazaEkleButton_Clicked" Style="{StaticResource ActionButton}" />
-                <Button Grid.Column="2" Text="+ Arıza" Clicked="ArizaEkleButton_Clicked" Style="{StaticResource ActionButton}" />
             </Grid>
 
-            <!-- Arıza Kayıtları -->
-            <Label Text="Arıza Kayıtları" TextColor="White" FontAttributes="Bold" FontSize="18" Margin="0,10,0,0"/>
-            <CollectionView ItemsSource="{Binding ArizaKayitlari}" Margin="0,0,0,10">
+            <Label Text="Bakım Kayıtları" FontSize="18" FontAttributes="Bold" Padding="10,10,10,0"/>
+            <CollectionView ItemsSource="{Binding BakimKayitlari}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
-                            <VerticalStackLayout>
-                                <Label Text="{Binding ArizaTarihi, StringFormat='Tarih: {0:dd.MM.yyyy}'}" TextColor="White"/>
-                                <Label Text="{Binding ArizaAciklamasi}" TextColor="White" FontAttributes="Bold"/>
-                                <Label Text="{Binding YapilanOnarim}" TextColor="LightGray"/>
-                                <Label Text="{Binding Durum}" TextColor="LightBlue"/>
-                            </VerticalStackLayout>
-                        </Frame>
+                    <DataTemplate x:DataType="models:BakimKaydi">
+                        <Border Style="{StaticResource CardView}" Margin="10,5">
+                            <StackLayout Padding="10" Spacing="5">
+                                <Label Text="{Binding Tarih, StringFormat='{0:dd.MM.yyyy}'}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Aciklama}" />
+                                <Label Text="{Binding Maliyet, StringFormat='Maliyet: {0:C}'}" HorizontalOptions="End" TextColor="{StaticResource SecondaryTextColor}"/>
+                            </StackLayout>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Bakım Kayıtları -->
-            <Label Text="Bakım Kayıtları" TextColor="White" FontAttributes="Bold" FontSize="18" Margin="0,10,0,0"/>
-            <CollectionView ItemsSource="{Binding BakimKayitlari}" Margin="0,0,0,10">
+            <Label Text="Kaza Kayıtları" FontSize="18" FontAttributes="Bold" Padding="10,10,10,0"/>
+            <CollectionView ItemsSource="{Binding KazaKayitlari}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
-                            <VerticalStackLayout>
-                                <Label Text="{Binding BakimTarihi, StringFormat='Tarih: {0:dd.MM.yyyy}'}" TextColor="White"/>
-                                <Label Text="{Binding YapilanIslemler}" TextColor="LightGray"/>
-                                <Label Text="{Binding BakimYapildigiKilometre, StringFormat='KM: {0:N0}'}" TextColor="White"/>
-                            </VerticalStackLayout>
-                        </Frame>
+                    <DataTemplate x:DataType="models:KazaKaydi">
+                        <Border Style="{StaticResource CardView}" Margin="10,5">
+                            <StackLayout Padding="10" Spacing="5">
+                                <Label Text="{Binding Tarih, StringFormat='{0:dd.MM.yyyy}'}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Aciklama}" />
+                                <Label Text="{Binding Tutar, StringFormat='Tutar: {0:C}'}" HorizontalOptions="End" TextColor="{StaticResource SecondaryTextColor}"/>
+                            </StackLayout>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Kaza Kayıtları -->
-            <Label Text="Kaza Kayıtları" TextColor="White" FontAttributes="Bold" FontSize="18" Margin="0,10,0,0"/>
-            <CollectionView ItemsSource="{Binding KazaKayitlari}" Margin="0,0,0,10">
+            <Label Text="Arıza Kayıtları" FontSize="18" FontAttributes="Bold" Padding="10,10,10,0"/>
+            <CollectionView ItemsSource="{Binding ArizaKayitlari}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
-                            <VerticalStackLayout>
-                                <Label Text="{Binding KazaTarihi, StringFormat='Tarih: {0:dd.MM.yyyy}'}" TextColor="White"/>
-                                <Label Text="{Binding Aciklama}" TextColor="LightGray"/>
-                                <Label Text="{Binding ToplamTutar, StringFormat='Tutar: ₺{0:N2}'}" TextColor="LightGreen"/>
-                            </VerticalStackLayout>
-                        </Frame>
+                    <DataTemplate x:DataType="models:ArizaKaydi">
+                        <Border Style="{StaticResource CardView}" Margin="10,5">
+                            <StackLayout Padding="10" Spacing="5">
+                                <Label Text="{Binding Tarih, StringFormat='{0:dd.MM.yyyy}'}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Aciklama}" />
+                                <Label Text="{Binding Maliyet, StringFormat='Maliyet: {0:C}'}" HorizontalOptions="End" TextColor="{StaticResource SecondaryTextColor}"/>
+                            </StackLayout>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
@@ -105,3 +107,6 @@
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
+
+
+

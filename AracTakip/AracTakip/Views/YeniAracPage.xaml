@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:AracTakip.Behaviors"
              x:Class="AracTakip.Views.YeniAracPage"
              Title="Yeni Araç Ekle">
 
@@ -14,17 +15,29 @@
 
                     <Label Text="Plaka" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Entry x:Name="PlakaEntry" Style="{StaticResource FormEntry}" />
+                        <Entry x:Name="PlakaEntry" Style="{StaticResource FormEntry}">
+                            <Entry.Behaviors>
+                                <behaviors:ToUpperTextBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Border>
 
                     <Label Text="Marka" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Entry x:Name="MarkaEntry" Style="{StaticResource FormEntry}" />
+                        <Entry x:Name="MarkaEntry" Style="{StaticResource FormEntry}">
+                            <Entry.Behaviors>
+                                <behaviors:ToUpperTextBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Border>
 
                     <Label Text="Model" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Entry x:Name="ModelEntry" Style="{StaticResource FormEntry}" />
+                        <Entry x:Name="ModelEntry" Style="{StaticResource FormEntry}">
+                            <Entry.Behaviors>
+                                <behaviors:ToUpperTextBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Border>
 
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
@@ -49,31 +62,58 @@
                     <Label Text="Teknik &amp; Ruhsat Bilgileri" Style="{StaticResource CardHeaderLabel}" />
                     <BoxView Style="{StaticResource Divider}" />
 
-                    <Label Text="Şasi No" Style="{StaticResource InputLabel}" />
+           
+
+                    <Label Text="Atanan Kullanıcı/Şoför" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Entry x:Name="SasiEntry" Style="{StaticResource FormEntry}" />
+                        <Entry x:Name="KullaniciEntry" Style="{StaticResource FormEntry}"/>
+                    </Border>
+
+            <Label Text="Şasi No" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry x:Name="SasiEntry" Style="{StaticResource FormEntry}">
+                            <Entry.Behaviors>
+                                <behaviors:ToUpperTextBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Border>
 
                     <Label Text="ARV Cihaz No" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Entry x:Name="ArvEntry" Style="{StaticResource FormEntry}" />
+                        <Entry x:Name="ArvEntry" Style="{StaticResource FormEntry}">
+                            <Entry.Behaviors>
+                                <behaviors:ToUpperTextBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Border>
-                    
+
                     <Label Text="Motor No" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Entry x:Name="MotorEntry" Style="{StaticResource FormEntry}" />
+                        <Entry x:Name="MotorEntry" Style="{StaticResource FormEntry}">
+                            <Entry.Behaviors>
+                                <behaviors:ToUpperTextBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Border>
 
                     <Label Text="Ruhsat Seri No" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Entry x:Name="RuhsatSeriEntry" Style="{StaticResource FormEntry}" />
+                        <Entry x:Name="RuhsatSeriEntry" Style="{StaticResource FormEntry}">
+                            <Entry.Behaviors>
+                                <behaviors:ToUpperTextBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Border>
 
                     <Label Text="Ruhsat Sahibi Firma" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Entry x:Name="FirmaEntry" Style="{StaticResource FormEntry}" />
+                        <Entry x:Name="FirmaEntry" Style="{StaticResource FormEntry}">
+                            <Entry.Behaviors>
+                                <behaviors:ToUpperTextBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Border>
-                    
+
                 </VerticalStackLayout>
             </Border>
 
@@ -81,13 +121,10 @@
                 <VerticalStackLayout Spacing="10">
                     <Label Text="Evrak Bitiş Tarihleri" Style="{StaticResource CardHeaderLabel}" />
                     <BoxView Style="{StaticResource Divider}" />
-
                     <Label Text="Vize Bitiş Tarihi" Style="{StaticResource InputLabel}" />
                     <DatePicker x:Name="VizePicker" Style="{StaticResource FormDatePicker}" />
-
                     <Label Text="Kasko Bitiş Tarihi" Style="{StaticResource InputLabel}" />
                     <DatePicker x:Name="KaskoPicker" Style="{StaticResource FormDatePicker}" />
-
                     <Label Text="Sigorta Bitiş Tarihi" Style="{StaticResource InputLabel}" />
                     <DatePicker x:Name="SigortaPicker" Style="{StaticResource FormDatePicker}" />
                 </VerticalStackLayout>
@@ -97,7 +134,6 @@
                 <VerticalStackLayout Spacing="10">
                     <Label Text="Araç Hakkında Notlar" Style="{StaticResource CardHeaderLabel}" />
                     <BoxView Style="{StaticResource Divider}" />
-
                     <Border Style="{StaticResource InputBorderStyle}">
                         <Editor x:Name="NotlarEditor" 
                                 AutoSize="TextChanges" 
@@ -107,7 +143,6 @@
                     </Border>
                 </VerticalStackLayout>
             </Border>
-            
 
             <Button Text="Kaydet"
                     Clicked="OnKaydetClicked"

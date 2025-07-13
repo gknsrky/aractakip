@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:AracTakip.Behaviors"
              x:Class="AracTakip.Views.YeniKazaPage"
              Title="Yeni Kaza Kaydı">
 
@@ -13,18 +14,18 @@
                     <BoxView Style="{StaticResource Divider}" />
 
                     <Label Text="Kaza Tarihi" Style="{StaticResource InputLabel}" />
-                    <DatePicker Style="{StaticResource FormDatePicker}" />
+                    <DatePicker x:Name="KazaTarihiPicker" Style="{StaticResource FormDatePicker}" />
 
                     <Label Text="Açıklama" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Editor AutoSize="TextChanges" HeightRequest="150" 
+                        <Editor x:Name="AciklamaEditor" AutoSize="TextChanges" HeightRequest="150" 
                                 Placeholder="Kazanın detaylarını, hasarı ve sonucu yazın..." 
                                 Style="{StaticResource FormEditor}" />
                     </Border>
 
                     <Label Text="Onarım ve Diğer Masraflar Toplamı (₺)" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Entry Keyboard="Numeric" Placeholder="Örn: 1500.50" Style="{StaticResource FormEntry}" />
+                        <Entry x:Name="TutarEntry" Keyboard="Numeric" Placeholder="Örn: 1500.50" Style="{StaticResource FormEntry}" />
                     </Border>
 
                     <Button Text="Kaza Fotoğrafları Ekle" 
@@ -35,6 +36,7 @@
             </Border>
 
             <Button Text="Kaydet" 
+                    Clicked="OnKaydetClicked"
                     FontAttributes="Bold" 
                     Margin="5,15,5,15"
                     HeightRequest="55"

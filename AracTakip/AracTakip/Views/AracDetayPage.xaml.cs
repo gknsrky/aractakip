@@ -1,6 +1,5 @@
 using AracTakip.Models;
-using AracTakip.Views;
-using Google.Cloud.Firestore;
+using AracTakip.Services;
 using System.Collections.ObjectModel;
 
 namespace AracTakip.Views;
@@ -8,62 +7,82 @@ namespace AracTakip.Views;
 public partial class AracDetayPage : ContentPage
 {
     public Arac DetayArac { get; set; }
-    public ObservableCollection<ArizaKaydi> ArizaKayitlari { get; set; } = new();
-    public ObservableCollection<BakimKaydi> BakimKayitlari { get; set; } = new();
-    public ObservableCollection<KazaKaydi> KazaKayitlari { get; set; } = new();
+    public ObservableCollection<BakimKaydi> BakimKayitlari { get; set; }
+    public ObservableCollection<KazaKaydi> KazaKayitlari { get; set; }
+    public ObservableCollection<ArizaKaydi> ArizaKayitlari { get; set; }
+
+    private readonly FirebaseService _firebaseService;
 
     public AracDetayPage(Arac arac)
     {
         InitializeComponent();
         DetayArac = arac;
-        BindingContext = this;
-        LoadKayitlarAsync();
+
+        BakimKayitlari = new ObservableCollection<BakimKaydi>();
+        KazaKayitlari = new ObservableCollection<KazaKaydi>();
+        ArizaKayitlari = new ObservableCollection<ArizaKaydi>();
+        _firebaseService = IPlatformApplication.Current.Services.GetService<FirebaseService>();
+
+        this.BindingContext = this;
     }
 
-    private async void LoadKayitlarAsync()
+    protected override async void OnAppearing()
     {
-        var db = FirestoreDb.Create("aractakip-ee2de"); // TODO: Firebase proje ID'n ile deðiþtir
-
-        // Arýza Kayýtlarý
-        var arizaRef = db.Collection("Araclar").Document(DetayArac.Id).Collection("ArizaKayitlari");
-        var arizaSnap = await arizaRef.GetSnapshotAsync();
-        foreach (var doc in arizaSnap.Documents)
-            ArizaKayitlari.Add(doc.ConvertTo<ArizaKaydi>());
-
-        // Bakým Kayýtlarý
-        var bakimRef = db.Collection("Araclar").Document(DetayArac.Id).Collection("BakimKayitlari");
-        var bakimSnap = await bakimRef.GetSnapshotAsync();
-        foreach (var doc in bakimSnap.Documents)
-            BakimKayitlari.Add(doc.ConvertTo<BakimKaydi>());
-
-        // Kaza Kayýtlarý
-        var kazaRef = db.Collection("Araclar").Document(DetayArac.Id).Collection("KazaKayitlari");
-        var kazaSnap = await kazaRef.GetSnapshotAsync();
-        foreach (var doc in kazaSnap.Documents)
-            KazaKayitlari.Add(doc.ConvertTo<KazaKaydi>());
+        base.OnAppearing();
+        await LoadAllDataAsync();
     }
 
+    private async Task LoadAllDataAsync()
+    {
+        if (DetayArac == null || string.IsNullOrEmpty(DetayArac.Plaka)) return;
+
+        try
+        {
+            var bakimTask = _firebaseService.GetBakimKayitlariAsync(DetayArac.Plaka);
+            var kazaTask = _firebaseService.GetKazaKayitlariAsync(DetayArac.Plaka);
+            var arizaTask = _firebaseService.GetArizaKayitlariAsync(DetayArac.Plaka);
+
+            await Task.WhenAll(bakimTask, kazaTask, arizaTask);
+
+            BakimKayitlari.Clear();
+            foreach (var bakim in bakimTask.Result) { BakimKayitlari.Add(bakim); }
+
+            KazaKayitlari.Clear();
+            foreach (var kaza in kazaTask.Result) { KazaKayitlari.Add(kaza); }
+
+            ArizaKayitlari.Clear();
+            foreach (var ariza in arizaTask.Result) { ArizaKayitlari.Add(ariza); }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Hata", "Kayýtlar yüklenirken bir sorun oluþtu: " + ex.Message, "Tamam");
+        }
+    }
+    
+    // BUTON METOTLARI GÜNCELLENDÝ
     private async void BakimEkleButton_Clicked(object sender, EventArgs e)
     {
         if (DetayArac != null)
-        {
-            await Navigation.PushAsync(new YeniBakimPage(DetayArac.Id));
-        }
+            await Navigation.PushAsync(new YeniBakimPage(DetayArac.Plaka));
     }
 
     private async void KazaEkleButton_Clicked(object sender, EventArgs e)
     {
         if (DetayArac != null)
-        {
-            await Navigation.PushAsync(new YeniKazaPage(DetayArac.Id));
-        }
+            await Navigation.PushAsync(new YeniKazaPage(DetayArac.Plaka));
     }
-
-    private async void ArizaEkleButton_Clicked(object sender, EventArgs e)
+    private async void DuzenleButton_Clicked(object sender, EventArgs e)
     {
         if (DetayArac != null)
         {
-            await Navigation.PushAsync(new YeniArizaPage(DetayArac.Id));
+            // YeniAracPage'i, düzenleme için olan constructor'ýný kullanarak açýyoruz
+            // ve düzenlenecek olan aracý ona gönderiyoruz.
+            await Navigation.PushAsync(new YeniAracPage(DetayArac));
         }
+    }
+    private async void ArizaEkleButton_Clicked(object sender, EventArgs e)
+    {
+        if (DetayArac != null)
+            await Navigation.PushAsync(new YeniArizaPage(DetayArac.Plaka));
     }
 }

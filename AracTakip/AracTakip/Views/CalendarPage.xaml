@@ -1,10 +1,67 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:calendar="clr-namespace:Syncfusion.Maui.Calendar;assembly=Syncfusion.Maui.Calendar"
+             xmlns:models="clr-namespace:AracTakip.Models"
              x:Class="AracTakip.Views.CalendarPage"
-             Title="Takvim Test">
+             Title="Yaklaşan Etkinlikler">
 
-    <calendar:SfCalendar />
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="20">
 
+            <Label Text="Filtrele:" Style="{StaticResource CardHeaderLabel}"/>
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                <HorizontalStackLayout Grid.Column="0" Spacing="5">
+                    <CheckBox x:Name="VizeFilter" IsChecked="True" CheckedChanged="Filter_CheckedChanged" Color="{StaticResource PrimaryAccentColor}"/>
+                    <Label Text="Vize" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="1" Spacing="5">
+                    <CheckBox x:Name="SigortaFilter" IsChecked="True" CheckedChanged="Filter_CheckedChanged" Color="{StaticResource PrimaryAccentColor}"/>
+                    <Label Text="Sigorta" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="2" Spacing="5">
+                    <CheckBox x:Name="KaskoFilter" IsChecked="True" CheckedChanged="Filter_CheckedChanged" Color="{StaticResource PrimaryAccentColor}"/>
+                    <Label Text="Kasko" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </Grid>
+
+            <BoxView Style="{StaticResource Divider}"/>
+
+            <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                <Label Text="Özel Tarih Aralığı Seç" VerticalOptions="Center"/>
+                <Switch x:Name="DateRangeSwitch" Toggled="DateRangeSwitch_Toggled"/>
+            </HorizontalStackLayout>
+
+            <Grid x:Name="CustomDateRangeGrid" IsVisible="False" ColumnDefinitions="*,*" ColumnSpacing="10">
+                <DatePicker x:Name="StartDatePicker" Grid.Column="0" DateSelected="Filter_DateSelected"/>
+                <DatePicker x:Name="EndDatePicker" Grid.Column="1" DateSelected="Filter_DateSelected"/>
+            </Grid>
+
+            <Label x:Name="DateRangeLabel" Text="Gelecek 7 Günün Etkinlikleri" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,10,0,0"/>
+
+            <ActivityIndicator x:Name="LoadingIndicator" IsRunning="False" IsVisible="False" Color="{StaticResource PrimaryAccentColor}"/>
+            <Label x:Name="ResultLabel" Text="Bu kriterlere uygun etkinlik bulunamadı." IsVisible="False" HorizontalOptions="Center" Margin="20"/>
+
+            <ListView x:Name="EventsListView" ItemsSource="{Binding GosterilecekEtkinlikler}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Etkinlik">
+                        <ViewCell>
+                            <Border Style="{StaticResource CardView}" Margin="0,5">
+                                <Grid Padding="10" ColumnDefinitions="Auto, *">
+                                    <StackLayout Grid.Column="0" Spacing="2" Margin="0,0,15,0" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label Text="{Binding Tarih, StringFormat='{0:dd}'}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding Tarih, StringFormat='{0:MMM}'}" FontSize="14" HorizontalOptions="Center"/>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1" Spacing="3">
+                                        <Label Text="{Binding Aciklama}" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Plaka}" TextColor="{StaticResource SecondaryTextColor}"/>
+                                    </StackLayout>
+                                </Grid>
+                            </Border>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

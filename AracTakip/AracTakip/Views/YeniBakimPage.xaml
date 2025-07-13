@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:AracTakip.Behaviors"
              x:Class="AracTakip.Views.YeniBakimPage"
              Title="Yeni Bakım Kaydı">
 
@@ -15,47 +16,42 @@
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                         <VerticalStackLayout Grid.Column="0">
                             <Label Text="Bakım Tarihi" Style="{StaticResource InputLabel}" />
-                            <DatePicker Style="{StaticResource FormDatePicker}" />
+                            <DatePicker x:Name="BakimTarihiPicker" Style="{StaticResource FormDatePicker}" />
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="1">
                             <Label Text="Araç Kilometresi" Style="{StaticResource InputLabel}" />
                             <Border Style="{StaticResource InputBorderStyle}">
-                                <Entry Keyboard="Numeric" Placeholder="örn: 150.000" Style="{StaticResource FormEntry}" />
+                                <Entry x:Name="KmEntry" Keyboard="Numeric" Placeholder="örn: 150.000" Style="{StaticResource FormEntry}" />
                             </Border>
                         </VerticalStackLayout>
                     </Grid>
 
                     <Label Text="Bakımın Yapıldığı Yer" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Entry Placeholder="Servis adı veya konumu" Style="{StaticResource FormEntry}" />
+                        <Entry x:Name="ServisYeriEntry" Placeholder="Servis adı veya konumu" Style="{StaticResource FormEntry}">
+                            <Entry.Behaviors>
+                                <behaviors:ToUpperTextBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Border>
 
                     <Label Text="Yapılan İşlemlerin Açıklaması" Style="{StaticResource InputLabel}" />
                     <Border Style="{StaticResource InputBorderStyle}">
-                        <Editor AutoSize="TextChanges" HeightRequest="120" 
+                        <Editor x:Name="AciklamaEditor" AutoSize="TextChanges" HeightRequest="120" 
                                 Placeholder="Değişen parçalar, yapılan kontroller vb." 
                                 Style="{StaticResource FormEditor}" />
                     </Border>
 
-                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                        <VerticalStackLayout Grid.Column="0">
-                            <Label Text="Parça Maliyeti (₺)" Style="{StaticResource InputLabel}" />
-                            <Border Style="{StaticResource InputBorderStyle}">
-                                <Entry Keyboard="Numeric" Placeholder="0" Style="{StaticResource FormEntry}" />
-                            </Border>
-                        </VerticalStackLayout>
-                        <VerticalStackLayout Grid.Column="1">
-                            <Label Text="İşçilik Maliyeti (₺)" Style="{StaticResource InputLabel}" />
-                            <Border Style="{StaticResource InputBorderStyle}">
-                                <Entry Keyboard="Numeric" Placeholder="0" Style="{StaticResource FormEntry}" />
-                            </Border>
-                        </VerticalStackLayout>
-                    </Grid>
+                    <Label Text="Toplam Maliyet (₺)" Style="{StaticResource InputLabel}" />
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry x:Name="MaliyetEntry" Keyboard="Numeric" Placeholder="0" Style="{StaticResource FormEntry}" />
+                    </Border>
 
                 </VerticalStackLayout>
             </Border>
 
             <Button Text="Bakım Kaydını Oluştur" 
+                    Clicked="OnKaydetClicked"
                     FontAttributes="Bold" 
                     Margin="5,15,5,15"
                     HeightRequest="55"

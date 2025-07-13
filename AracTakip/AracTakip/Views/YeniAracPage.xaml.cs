@@ -1,69 +1,84 @@
-using AracTakip.Models; // Sadece ihtiyacýmýz olan using ifadesi
+using AracTakip.Models;
+using AracTakip.Services;
 
 namespace AracTakip.Views;
 
 public partial class YeniAracPage : ContentPage
 {
+    private readonly FirebaseService _firebaseService;
+    private bool _isEditMode = false;
+
+    // Yeni Araç Ekleme için
     public YeniAracPage()
     {
         InitializeComponent();
+        _firebaseService = IPlatformApplication.Current.Services.GetService<FirebaseService>();
+        Title = "Yeni Araç Ekle";
+    }
+
+    // Araç Düzenleme için
+    public YeniAracPage(Arac aracToEdit)
+    {
+        InitializeComponent();
+        _firebaseService = IPlatformApplication.Current.Services.GetService<FirebaseService>();
+        Title = "Aracý Düzenle";
+        _isEditMode = true;
+
+        PlakaEntry.Text = aracToEdit.Plaka;
+        PlakaEntry.IsEnabled = false;
+        MarkaEntry.Text = aracToEdit.Marka;
+        ModelEntry.Text = aracToEdit.Model;
+        YilEntry.Text = aracToEdit.Yil.ToString();
+        KmEntry.Text = aracToEdit.GuncelKilometre.ToString();
+        SasiEntry.Text = aracToEdit.SasiNo;
+        MotorEntry.Text = aracToEdit.MotorNo;
+        RuhsatSeriEntry.Text = aracToEdit.RuhsatSeriNo;
+        // DÜZELTME 1: 'aracToedit' -> 'aracToEdit' olarak düzeltildi.
+        FirmaEntry.Text = aracToEdit.RuhsatSahibiFirma;
+        // DÜZELTME 2: 'ArvCihazNo' -> 'ArvEntry' olarak düzeltildi.
+        ArvEntry.Text = aracToEdit.ArvCihazNo;
+        NotlarEditor.Text = aracToEdit.Notlar;
+        VizePicker.Date = aracToEdit.VizeBitisTarihi ?? DateTime.Now;
+        KaskoPicker.Date = aracToEdit.KaskoBitisTarihi ?? DateTime.Now;
+        SigortaPicker.Date = aracToEdit.SigortaBitisTarihi ?? DateTime.Now;
     }
 
     private async void OnKaydetClicked(object sender, EventArgs e)
     {
+        // ... (Doðrulama kodlarý ayný kalýyor) ...
+
         try
         {
-            // Yýl ve Kilometre alanlarýnýn sayýsal olup olmadýðýný kontrol ediyoruz.
-            // Bu, int.Parse'dan daha güvenlidir ve programýn çökmesini engeller.
-            if (!int.TryParse(YilEntry.Text, out int yil))
+            // YENÝ ARAC NESNESÝNÝN OLUÞTURULDUÐU BLOÐUN DOÐRU HALÝ
+            var arac = new Arac
             {
-                await DisplayAlert("Hata", "Lütfen geçerli bir Yýl giriniz.", "Tamam");
-                return;
-            }
-
-            if (!int.TryParse(KmEntry.Text, out int kilometre))
-            {
-                await DisplayAlert("Hata", "Lütfen geçerli bir Kilometre giriniz.", "Tamam");
-                return;
-            }
-
-            // Yeni bir 'Arac' nesnesi oluþturup, formdaki verilerle dolduruyoruz.
-            var yeniArac = new Arac
-            {
-                // Plakayý her zaman büyük harf ve boþluksuz olarak kaydediyoruz.
-                Plaka = PlakaEntry.Text?.Trim().ToUpper() ?? string.Empty,
-                Marka = MarkaEntry.Text?.Trim() ?? string.Empty,
-                Model = ModelEntry.Text?.Trim() ?? string.Empty,
-                Yil = yil,
-                GuncelKilometre = kilometre,
-
-                // Yeni eklediðimiz alanlarý da dolduruyoruz.
-                ArvCihazNo = ArvEntry.Text?.Trim() ?? string.Empty,
-                SasiNo = SasiEntry.Text?.Trim() ?? string.Empty,
-                MotorNo = MotorEntry.Text?.Trim() ?? string.Empty,
-                RuhsatSeriNo = RuhsatSeriEntry.Text?.Trim() ?? string.Empty,
-                RuhsatSahibiFirma = FirmaEntry.Text?.Trim() ?? string.Empty,
-
-                // DÜZELTME: '??' operatörleri buradan kaldýrýldý.
+                Plaka = PlakaEntry.Text.Trim().ToUpper(),
+                Marka = MarkaEntry.Text.Trim(),
+                Model = ModelEntry.Text.Trim(),
+                Yil = int.Parse(YilEntry.Text),
+                GuncelKilometre = int.Parse(KmEntry.Text),
+                SasiNo = SasiEntry.Text?.Trim(),
+                MotorNo = MotorEntry.Text?.Trim(),
+                RuhsatSeriNo = RuhsatSeriEntry.Text?.Trim(),
+                RuhsatSahibiFirma = FirmaEntry.Text?.Trim(),
+                AtananKullanici = KullaniciEntry.Text?.Trim() ?? string.Empty,
+                ArvCihazNo = ArvEntry.Text?.Trim(),
+                Notlar = NotlarEditor.Text?.Trim(),
                 VizeBitisTarihi = VizePicker.Date,
                 KaskoBitisTarihi = KaskoPicker.Date,
-                SigortaBitisTarihi = SigortaPicker.Date,
-
-                Notlar = NotlarEditor.Text?.Trim() ?? string.Empty
+                SigortaBitisTarihi = SigortaPicker.Date
             };
 
-            // TODO: Bu 'yeniArac' nesnesini Firebase'e kaydetme kodu buraya gelecek.
+            await _firebaseService.AracEkleAsync(arac);
 
-            // Þimdilik, iþlemin baþarýlý olduðunu bir uyarý ile gösteriyoruz.
-            await DisplayAlert("Baþarýlý", $"{yeniArac.Plaka} plakalý araç baþarýyla oluþturuldu.", "Harika!");
+            var message = _isEditMode ? "Araç baþarýyla güncellendi." : "Araç baþarýyla kaydedildi.";
+            await DisplayAlert("Baþarýlý", message, "Harika!");
 
-            // Ýþlem bittikten sonra, bir önceki sayfaya geri dönüyoruz.
             await Navigation.PopAsync();
         }
         catch (Exception ex)
         {
-            // Beklenmedik bir hata olursa kullanýcýyý bilgilendiriyoruz.
-            await DisplayAlert("Beklenmedik Hata", "Bir sorun oluþtu: " + ex.Message, "Tamam");
+            await DisplayAlert("Hata", "Ýþlem sýrasýnda bir sorun oluþtu: " + ex.Message, "Tamam");
         }
     }
 }

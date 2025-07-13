@@ -3,15 +3,24 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <Color x:Key="PageBackgroundColor">#1c1c2e</Color>
-    <Color x:Key="CardBackgroundColor">#2c2c3e</Color>
+    <Color x:Key="PageBackgroundColorLight">#F2F2F7</Color>
+    <Color x:Key="CardBackgroundColorLight">#FFFFFF</Color>
+    <Color x:Key="PrimaryTextColorLight">#1D1D1F</Color>
+    <Color x:Key="SecondaryTextColorLight">#6E6E73</Color>
+    <Color x:Key="BorderColorLight">#D1D1D6</Color>
 
-    <Color x:Key="PrimaryTextColor">#FFFFFF</Color>
-    <Color x:Key="SecondaryTextColor">#A9A9A9</Color>
+    <Color x:Key="PageBackgroundColorDark">#1c1c2e</Color>
+    <Color x:Key="CardBackgroundColorDark">#2c2c3e</Color>
+    <Color x:Key="PrimaryTextColorDark">#FFFFFF</Color>
+    <Color x:Key="SecondaryTextColorDark">#A9A9A9</Color>
+    <Color x:Key="BorderColorDark">#444444</Color>
 
     <Color x:Key="PrimaryAccentColor">#6a67ea</Color>
     <Color x:Key="SecondaryAccentColor">#34d399</Color>
-    <Color x:Key="BorderColor">#444444</Color>
     <Color x:Key="ButtonBackgroundColor">#4a4a6a</Color>
-
+    <Color x:Key="LoginBackgroundColor">#1F1D2B</Color>
+    <Color x:Key="LoginHeaderColor">#252836</Color>
+    <Color x:Key="LoginEntryBackgroundColor">#3F3D4B</Color>
+    <Color x:Key="LoginHeaderColorLight">#E8E8E8</Color>
+    <Color x:Key="LoginEntryBackgroundColorLight">#F2F2F7</Color>
 </ResourceDictionary>

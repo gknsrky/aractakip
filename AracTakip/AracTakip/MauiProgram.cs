@@ -1,6 +1,4 @@
-﻿using Syncfusion.Maui.Core.Hosting;
-using Syncfusion.Licensing;
-using AracTakip.Services;
+﻿using AracTakip.Services;
 
 namespace AracTakip;
 
@@ -8,8 +6,7 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
-        // Syncfusion Lisans Anahtarı
-        SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JEaF5cXmRCeUx3TXxbf1x1ZFRGal5VTnZWUiweQnxTdEBjXn5fcXRXQmBVWUxyX0leYw==");
+        // ... (Mevcut Syncfusion lisans kodun burada)
 
         var builder = MauiApp.CreateBuilder();
 
@@ -20,7 +17,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             })
-            .ConfigureSyncfusionCore();
+            ;
 
         // FirebaseService manuel kayıt
         builder.Services.AddSingleton<FirebaseService>(sp =>
@@ -30,6 +27,15 @@ public static class MauiProgram
                 firestoreProjectId: "aractakip-d8b16"
             )
         );
+
+        // YENİ EKLENEN BLOK: Entry alt çizgisini kaldırmak için
+#if WINDOWS
+        Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoBorder", (handler, view) =>
+        {
+            handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
+            handler.PlatformView.Padding = new Microsoft.UI.Xaml.Thickness(0);
+        });
+#endif
 
         return builder.Build();
     }

@@ -1,45 +1,42 @@
-using System;
-using Microsoft.Maui.Storage;
+using AracTakip.Services;
 
 namespace AracTakip.Views;
 
 public partial class LoginPage : ContentPage
 {
+    private readonly FirebaseService _firebaseService;
+
     public LoginPage()
     {
         InitializeComponent();
+        _firebaseService = IPlatformApplication.Current.Services.GetService<FirebaseService>();
     }
 
     private async void OnLoginClicked(object sender, EventArgs e)
     {
         var email = EmailEntry.Text?.Trim();
-        var password = PasswordEntry.Text;
+        var password = PasswordEntry.Text?.Trim();
 
-        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
-            ErrorLabel.Text = "Lütfen e-posta ve þifre giriniz.";
-            ErrorLabel.IsVisible = true;
+            await DisplayAlert("Hata", "E-posta ve þifre alanlarý boþ býrakýlamaz.", "Tamam");
             return;
         }
 
-        // Firebase yerine sahte giriþ (Firebase hazýr olunca entegre edilir)
-        bool isLoginSuccessful = true;
-
-        if (isLoginSuccessful)
+        try
         {
-            if (RememberMeCheckbox.IsChecked)
+            // Servisimizdeki LoginAsync metodunu çaðýrýyoruz. Artýk bir token bekliyoruz.
+            string userToken = await _firebaseService.LoginAsync(email, password);
+
+            if (!string.IsNullOrEmpty(userToken))
             {
-                Preferences.Set("email", email);
-                Preferences.Set("password", password);
-                Preferences.Set("isRemembered", true);
+                // Giriþ baþarýlýysa ve token alýndýysa ana sayfaya yönlendir.
+                Application.Current.MainPage = new AppShell();
             }
-
-            await Navigation.PushAsync(new MainPage()); // Dummy olarak MainPage'e geç
         }
-        else
+        catch (Exception ex)
         {
-            ErrorLabel.Text = "Giriþ baþarýsýz.";
-            ErrorLabel.IsVisible = true;
+            await DisplayAlert("Giriþ Baþarýsýz", ex.Message, "Tekrar Dene");
         }
     }
 }
