@@ -96,4 +96,12 @@
 	  <PackageReference Update="Microsoft.Maui.Controls" Version="9.0.82" />
 	</ItemGroup>
 
+	<Target Name="FixAaptAssetsBug" BeforeTargets="_BuildApk">
+		<PropertyGroup>
+			<_AssetsDir>$([System.IO.Path]::Combine($(IntermediateOutputPath), 'assets'))</_AssetsDir>
+		</PropertyGroup>
+		<Message Text=">> [FixAaptAssetsBug] Creating: $(_AssetsDir)" Importance="high" />
+		<MakeDir Directories="$(_AssetsDir)" />
+	</Target>
+
 </Project>

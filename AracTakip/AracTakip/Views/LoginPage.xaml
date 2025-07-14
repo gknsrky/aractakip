@@ -3,32 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AracTakip.Views.LoginPage"
              Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
              BackgroundColor="{AppThemeBinding Light={StaticResource PageBackgroundColorLight}, Dark={StaticResource LoginBackgroundColor}}">
 
     <Grid>
+
         <BoxView
             Color="{AppThemeBinding Light={StaticResource LoginHeaderColorLight}, Dark={StaticResource LoginHeaderColor}}"
             HeightRequest="350" 
             VerticalOptions="Start"
             CornerRadius="0,0,40,40" />
 
-        <Image 
-            Source="login_logo.png"
-            HeightRequest="150"
-            Aspect="AspectFit"
-            VerticalOptions="Start"
-            Margin="0,60,0,0"/>
-
         <ScrollView>
             <VerticalStackLayout
                 Spacing="20"
                 Padding="30,0"
                 VerticalOptions="Center" 
-                Margin="0,50,0,0">
+                Margin="0,0,0,0">
+
+                <Image 
+                    Source="login_logo.png"
+                    HeightRequest="190"
+                    Aspect="AspectFit"
+                    Margin="0,0,0,30"/>
 
                 <Label 
-                    Text="Tekrar Hoş Geldin!"
-                    FontSize="32"
+                    Text=" İkiler Otomotiv Filo Takip"
+                    FontSize="28"
                     FontAttributes="Bold"
                     HorizontalOptions="Center"/>
 
@@ -55,17 +56,6 @@
                         HeightRequest="55"
                         Margin="0,10,0,0"/>
 
-                <Grid ColumnDefinitions="*, Auto">
-                    <HorizontalStackLayout Grid.Column="0">
-                        <CheckBox x:Name="RememberMeCheckbox" Color="{StaticResource PrimaryAccentColor}" />
-                        <Label Text="Beni hatırla" VerticalOptions="Center" Style="{StaticResource LabelSecondary}"/>
-                    </HorizontalStackLayout>
-                    <Label Grid.Column="1" Text="Şifremi Unuttum?" TextColor="{StaticResource PrimaryAccentColor}" VerticalOptions="Center">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </Grid>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
